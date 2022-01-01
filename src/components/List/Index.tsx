@@ -26,5 +26,3 @@ const List = ({ items }: IListProps) => {
 };
 
 export default List;
-
-export {};
