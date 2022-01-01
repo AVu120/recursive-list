@@ -1,5 +1,5 @@
 import "./App.css";
-import List from "./components/List/Index";
+import List from "./components/List";
 import { IFile, IFolder } from "./types/global";
 
 const mockItems: (IFile | IFolder)[] = [
