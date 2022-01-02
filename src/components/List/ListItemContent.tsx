@@ -5,13 +5,18 @@ import ClosedFolderIcon from "../Icons/ClosedFolder";
 import OpenFolderIcon from "../Icons/OpenFolder";
 import FileIcon from "../Icons/File";
 
-interface IListItemText {
+interface IListItemContent {
   type: "folder" | "file";
   onClick: () => void;
   isOpen: boolean;
   title: string;
 }
-const ListItemText = ({ type, onClick, isOpen, title }: IListItemText) => {
+const ListItemContent = ({
+  type,
+  onClick,
+  isOpen,
+  title,
+}: IListItemContent) => {
   if (type === "folder")
     return (
       <span className={styles.folderLineContent} onClick={onClick}>
@@ -38,4 +43,4 @@ const ListItemText = ({ type, onClick, isOpen, title }: IListItemText) => {
   );
 };
 
-export default ListItemText;
+export default ListItemContent;

@@ -1,6 +1,6 @@
 import { IFile, IFolder } from "../../types/global";
 import styles from "./index.module.scss";
-import ListItemText from "./ListItemText";
+import ListItemContent from "./ListItemContent";
 
 interface IListProps {
   items: (IFolder | IFile)[];
@@ -20,7 +20,7 @@ const List = ({ items, openFolderRecord, handleFolderClick }: IListProps) => {
         }: (IFile | IFolder) & { children?: (IFile | IFolder)[] }) => {
           return (
             <li key={`Type:${type} Title:${title}`} className={styles.listItem}>
-              <ListItemText
+              <ListItemContent
                 type={type}
                 isOpen={!!openFolderRecord[id]}
                 title={title}
