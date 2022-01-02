@@ -1,10 +1,6 @@
 import { IFile, IFolder } from "../../types/global";
-import ClosedFolderIcon from "../Icons/ClosedFolder";
-import OpenFolderIcon from "../Icons/OpenFolder";
-import FileIcon from "../Icons/File";
-import ExpandArrowIcon from "../Icons/ExpandArrow";
-import ExpandedArrowIcon from "../Icons/ExpandedArrow";
 import styles from "./index.module.scss";
+import ListItemText from "./ListItemText";
 
 interface IListProps {
   items: (IFolder | IFile)[];
@@ -24,30 +20,12 @@ const List = ({ items, openFolderRecord, handleFolderClick }: IListProps) => {
         }: (IFile | IFolder) & { children?: (IFile | IFolder)[] }) => {
           return (
             <li key={`Type:${type} Title:${title}`} className={styles.listItem}>
-              {type === "folder" ? (
-                <span
-                  className={styles.folderLineContent}
-                  onClick={() => handleFolderClick(id)}
-                >
-                  {openFolderRecord[id] ? (
-                    <>
-                      <ExpandedArrowIcon />
-                      <OpenFolderIcon />
-                    </>
-                  ) : (
-                    <>
-                      <ExpandArrowIcon />
-                      <ClosedFolderIcon />
-                    </>
-                  )}
-                  {title}{" "}
-                </span>
-              ) : (
-                <span className={styles.fileLineContent}>
-                  <FileIcon />
-                  {title}{" "}
-                </span>
-              )}
+              <ListItemText
+                type={type}
+                isOpen={!!openFolderRecord[id]}
+                title={title}
+                onClick={() => handleFolderClick(id)}
+              />
               {openFolderRecord[id] && !!children?.length && (
                 <List
                   items={children}
