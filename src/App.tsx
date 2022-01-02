@@ -4,6 +4,7 @@ import { useState } from "react";
 import { mockItems } from "./mockData";
 import ContextMenu from "./components/Menus/ContextMenu";
 
+const excludedClassNames = ["fileLineContent", "folderLineContent"];
 function App() {
   const [openFolderRecord, setOpenFolderRecord] = useState<
     Record<string, boolean>
@@ -24,7 +25,10 @@ function App() {
         openFolderRecord={openFolderRecord}
         handleFolderClick={handleFolderClick}
       />
-      <ContextMenu options={contextMenuOptions} />
+      <ContextMenu
+        options={contextMenuOptions}
+        excludedClassNames={excludedClassNames}
+      />
     </div>
   );
 }
