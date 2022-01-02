@@ -1,0 +1,33 @@
+.menu {
+  font-size: calc(10px + 2vmin);
+  background-color: #fff;
+  color: black;
+  border-radius: 5px;
+  padding: 0;
+  width: 150px;
+  margin: 0;
+  text-align: start;
+  /* use absolute positioning  */
+  position: absolute;
+  list-style: none;
+  box-shadow: 0 0 20px 0 #ccc;
+  transition: opacity 0.5s linear;
+  cursor: pointer;
+}
+
+.divider {
+  width: auto;
+  padding-left: 10px;
+}
+
+.listItem {
+  padding: 7.5px 0 7.5px 15px;
+}
+
+.listItem:first-child {
+  padding-top: 15px;
+}
+
+.listItem:last-child {
+  padding-bottom: 15px;
+}
