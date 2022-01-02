@@ -34,7 +34,7 @@ const ContextMenu = ({
       setAnchorPoint({ x: event.pageX, y: event.pageY });
       setShow(true);
     },
-    [setAnchorPoint]
+    [excludedClassNames]
   );
 
   const handleClick = useCallback(
