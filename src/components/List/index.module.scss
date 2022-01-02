@@ -11,7 +11,9 @@
 
 .folderLineContent {
   @extend %lineContent;
+  cursor: pointer;
 }
+
 .fileLineContent {
   @extend %lineContent;
   padding-left: 27px;
