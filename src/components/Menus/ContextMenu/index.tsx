@@ -37,14 +37,11 @@ const ContextMenu = ({
     [excludedClassNames]
   );
 
-  const handleClick = useCallback(
-    (event) => {
-      if (show) {
-        setShow(false);
-      }
-    },
-    [show]
-  );
+  const handleClick = useCallback(() => {
+    if (show) {
+      setShow(false);
+    }
+  }, [show]);
 
   useEffect(() => {
     let targetRef = parentRef ? parentRef.current : document;
