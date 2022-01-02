@@ -4,7 +4,7 @@
   color: black;
   border-radius: 5px;
   padding: 0;
-  width: 150px;
+  width: 200px;
   margin: 0;
   text-align: start;
   /* use absolute positioning  */
@@ -13,11 +13,6 @@
   box-shadow: 0 0 20px 0 #ccc;
   transition: opacity 0.5s linear;
   cursor: pointer;
-}
-
-.divider {
-  width: auto;
-  padding-left: 10px;
 }
 
 .listItem {
