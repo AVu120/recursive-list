@@ -1,5 +1,5 @@
 import styles from "./index.module.scss";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, RefObject } from "react";
 
 interface IOption {
   label: string;
@@ -7,10 +7,11 @@ interface IOption {
 }
 
 interface IContextMenuProps {
+  parentRef?: RefObject<HTMLDivElement>;
   options: IOption[];
 }
 
-const ContextMenu = ({ options }: IContextMenuProps) => {
+const ContextMenu = ({ parentRef, options }: IContextMenuProps) => {
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
   const [show, setShow] = useState(false);
 
@@ -30,11 +31,13 @@ const ContextMenu = ({ options }: IContextMenuProps) => {
   }, [show]);
 
   useEffect(() => {
-    document.addEventListener("click", handleClick);
-    document.addEventListener("contextmenu", handleContextMenu);
+    let targetRef = parentRef ? parentRef.current : document;
+
+    targetRef?.addEventListener("click", handleClick);
+    targetRef?.addEventListener("contextmenu", handleContextMenu);
     return () => {
-      document.removeEventListener("click", handleClick);
-      document.removeEventListener("contextmenu", handleContextMenu);
+      targetRef?.removeEventListener("click", handleClick);
+      targetRef?.removeEventListener("contextmenu", handleContextMenu);
     };
   });
 
