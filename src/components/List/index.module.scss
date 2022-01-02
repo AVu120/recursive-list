@@ -2,11 +2,19 @@
   list-style: none;
 }
 
-.lineContent {
+%lineContent {
   display: flex;
   column-gap: 5px;
   align-items: center;
   margin: 5px 0;
+}
+
+.folderLineContent {
+  @extend %lineContent;
+}
+.fileLineContent {
+  @extend %lineContent;
+  padding-left: 27px;
 }
 
 .listItem {

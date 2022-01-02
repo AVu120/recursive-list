@@ -2,23 +2,17 @@ import { IFile, IFolder } from "../../types/global";
 import ClosedFolderIcon from "../Icons/ClosedFolder";
 import OpenFolderIcon from "../Icons/OpenFolder";
 import FileIcon from "../Icons/File";
-// import ExpandArrowIcon from "../Icons/ExpandArrow";
+import ExpandArrowIcon from "../Icons/ExpandArrow";
+import ExpandedArrowIcon from "../Icons/ExpandedArrow";
 import styles from "./index.module.scss";
-import { useState } from "react";
 
 interface IListProps {
   items: (IFolder | IFile)[];
+  openFolderRecord: Record<string, boolean>;
+  handleFolderClick: (id: string) => void;
 }
 
-const List = ({ items }: IListProps) => {
-  const [openFolderRecord, setOpenFolderRecord] = useState<
-    Record<string, boolean>
-  >({});
-
-  const handleFolderClick = (id: string) => {
-    setOpenFolderRecord({ ...openFolderRecord, [id]: !openFolderRecord[id] });
-  };
-
+const List = ({ items, openFolderRecord, handleFolderClick }: IListProps) => {
   return (
     <ul className={styles.unorderedList}>
       {items.map(
@@ -30,23 +24,36 @@ const List = ({ items }: IListProps) => {
         }: (IFile | IFolder) & { children?: (IFile | IFolder)[] }) => {
           return (
             <li key={`Type:${type} Title:${title}`} className={styles.listItem}>
-              <span
-                className={styles.lineContent}
-                onClick={() => handleFolderClick(id)}
-              >
-                {type === "folder" ? (
-                  openFolderRecord[id] ? (
-                    <OpenFolderIcon />
+              {type === "folder" ? (
+                <span
+                  className={styles.folderLineContent}
+                  onClick={() => handleFolderClick(id)}
+                >
+                  {openFolderRecord[id] ? (
+                    <>
+                      <ExpandedArrowIcon />
+                      <OpenFolderIcon />
+                    </>
                   ) : (
-                    <ClosedFolderIcon />
-                  )
-                ) : (
+                    <>
+                      <ExpandArrowIcon />
+                      <ClosedFolderIcon />
+                    </>
+                  )}
+                  {title}{" "}
+                </span>
+              ) : (
+                <span className={styles.fileLineContent}>
                   <FileIcon />
-                )}
-                {title}{" "}
-              </span>
+                  {title}{" "}
+                </span>
+              )}
               {openFolderRecord[id] && !!children?.length && (
-                <List items={children} />
+                <List
+                  items={children}
+                  openFolderRecord={openFolderRecord}
+                  handleFolderClick={handleFolderClick}
+                />
               )}
             </li>
           );
