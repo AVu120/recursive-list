@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <title>Folder Directory</title>
+    <script type="text/javascript">
+      window.onload = function () {
+        const openRecord = {};
+        const mockData = [
+          {
+            title: "Folder 1",
+            type: "folder",
+            children: [{ title: "File 1.A", type: "file", id: "File 1.A" }],
+            id: "Folder 1",
+          },
+          {
+            title: "Folder 2",
+            type: "folder",
+            children: [
+              {
+                title: "Folder 2.1",
+                type: "folder",
+                children: [
+                  { title: "File 2.1.A", type: "file", id: "File 2.1.A" },
+                ],
+                id: "Folder 2.1",
+              },
+            ],
+            id: "Folder 2",
+          },
+          {
+            title: "Folder 3",
+            type: "folder",
+            children: [
+              {
+                title: "Folder 3.1",
+                type: "folder",
+                children: [],
+                id: "Folder 3.1",
+              },
+              {
+                title: "Folder 3.2",
+                type: "folder",
+                children: [
+                  {
+                    title: "Folder 3.2.1",
+                    type: "folder",
+                    children: [],
+                    id: "Folder 3.2.1",
+                  },
+                ],
+                id: "Folder 3.2",
+              },
+              { title: "File 3.A", type: "file", id: "File 3.A" },
+              { title: "File 3.B", type: "file", id: "File 3.B" },
+              { title: "File 3.C", type: "file", id: "File 3.C" },
+              {
+                title: "File 3.3.2.A",
+                type: "folder",
+                children: [
+                  {
+                    title: "Folder 3.3.1",
+                    type: "folder",
+                    children: [
+                      {
+                        title: "File 3.3.1.A",
+                        type: "file",
+                        id: "File 3.3.1.A",
+                      },
+                      {
+                        title: "File 3.3.1.B",
+                        type: "file",
+                        id: "File 3.3.1.B",
+                      },
+                      {
+                        title: "File 3.3.1.C",
+                        type: "file",
+                        id: "File 3.3.1.C",
+                      },
+                      {
+                        title: "File 3.3.1.D",
+                        type: "file",
+                        id: "File 3.3.1.D",
+                      },
+                      {
+                        title: "File 3.3.1.E",
+                        type: "file",
+                        id: "File 3.3.1.E",
+                      },
+                    ],
+                    id: "Folder 3.3.1",
+                  },
+                  {
+                    title: "Folder 3.3.2",
+                    type: "folder",
+                    children: [
+                      {
+                        title: "Folder 3.3.2.1",
+                        type: "folder",
+                        children: [
+                          {
+                            title: "File 3.3.2.A",
+                            type: "file",
+                            id: "File 3.3.2.A",
+                          },
+                        ],
+                        id: "Folder 3.3.2.1",
+                      },
+                    ],
+                    id: "Folder 3.3.2",
+                  },
+                ],
+                id: "File 3.3.2.A",
+              },
+            ],
+            id: "Folder 3",
+          },
+        ];
+
+        const render = (data, node) => {
+          const ul = document.createElement("ul");
+          node.appendChild(ul);
+          data.forEach((item) => {
+            const li = document.createElement("li");
+            const span = document.createElement("span");
+            span.innerText = `${
+              item.type === "folder"
+                ? `${openRecord[item.id] ? "- " : "+ "}`
+                : ""
+            }${item.title}`;
+            if (item.type === "folder") {
+              span.className = "folderWithChildren";
+              span.addEventListener("click", () => {
+                if (openRecord[item.id]) {
+                  openRecord[item.id] = false;
+                } else {
+                  openRecord[item.id] = true;
+                }
+                repaint();
+              });
+            }
+            li.appendChild(span);
+            ul.appendChild(li);
+            if (openRecord[item.id] && item.children?.length > 0) {
+              li.appendChild(render(item.children, li));
+            }
+          });
+          return ul;
+        };
+
+        const repaint = () => {
+          const folderDirectory = document.getElementById("folderDirectory");
+          folderDirectory.innerHTML = "";
+          folderDirectory.appendChild(render(mockData, folderDirectory));
+        };
+        repaint();
+      };
+    </script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5vh;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      span.folderWithChildren {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Folder Directory</h1>
+    <div id="folderDirectory"></div>
+  </body>
+</html>
